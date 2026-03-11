@@ -1,4 +1,6 @@
 from setuptools import find_packages, setup
+import os
+from glob import glob
 
 package_name = 'robot_control'
 
@@ -10,11 +12,13 @@ setup(
         ('share/ament_index/resource_index/packages',
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
+        (os.path.join('share', package_name, 'launch'), glob('launch/*.py')),
+        (os.path.join('share', package_name), ['robot_control/unbiased_best.pt']),
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='ubu2',
-    maintainer_email='carlton.lobo@outlook.com',
+    maintainer='root',
+    maintainer_email='root@todo.todo',
     description='TODO: Package description',
     license='TODO: License declaration',
     extras_require={
@@ -24,6 +28,11 @@ setup(
     },
     entry_points={
         'console_scripts': [
-        ],
+        'camera_test = robot_control.camera_test:main',
+        'image_scan = robot_control.image_scanner_two:main',
+        'servo_move = robot_control.camera_switcher:main',
+        'line_follower = robot_control.line_follower:main',
+        'stream = robot_control.streamer_node:main',
+            ],
     },
 )
